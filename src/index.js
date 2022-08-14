@@ -25,19 +25,13 @@ refs.searchForm.addEventListener('submit', searchFn);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 async function searchFn(e) {
+  e.preventDefault();
   pageNumber = 1;
   refs.gallery.innerHTML = '';
-  e.preventDefault();
-  const searchQery = refs.inputForm.value.trim();
-  const backendFeedback = await backendRequest(searchQery, pageNumber);
-  renderPhotoCards(backendFeedback);  
-  scrollBy();
-  pageNumber += 1;
-  await lightbox.refresh();
+  onLoadMore();
 }
 
-async function onLoadMore(e) {
-  e.preventDefault();
+async function onLoadMore() {
   const searchQery = refs.inputForm.value.trim();
   const backendFeedback = await backendRequest(searchQery, pageNumber);
   renderPhotoCards(backendFeedback); 
