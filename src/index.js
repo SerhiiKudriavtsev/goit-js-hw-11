@@ -26,14 +26,8 @@ refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 async function searchFn(e) {
   pageNumber = 1;
-  e.preventDefault();
   refs.gallery.innerHTML = '';
-  const searchQery = refs.inputForm.value.trim();
-  const backendFeedback = await backendRequest(searchQery, pageNumber);
-  renderPhotoCards(backendFeedback);  
-  scrollBy();
-  pageNumber += 1;
-  await lightbox.refresh();
+  onLoadMore();
 }
 
 async function onLoadMore(e) {
