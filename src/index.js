@@ -3,6 +3,7 @@ import { backendRequest } from './js/backendRequest';
 import photoCardTpl from './templates/photo-card.hbs';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import InfiniteScroll from 'infinite-scroll';
 
 export let pageNumber;
 export const perPage = 40;
@@ -54,3 +55,11 @@ function scrollBy() {
     behavior: 'smooth',
   });
 }
+
+// function scrollBy() {
+//   let infScroll = new InfiniteScroll('.gallery', {
+//     path: '.pagination__next',
+//     append: '.post',
+//     history: false,
+//   });
+// }
