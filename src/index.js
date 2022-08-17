@@ -24,17 +24,17 @@ let lightbox = new SimpleLightbox('.gallery a', {
 });
 
 refs.searchForm.addEventListener('submit', searchFn);
-// refs.loadMoreBtn.addEventListener('click', onLoadMore);
-window.addEventListener('scroll', debounce(onScroll, DEBOUNCE_DELAY));
+refs.loadMoreBtn.addEventListener('click', onLoadMore);
+// window.addEventListener('scroll', debounce(onScroll, DEBOUNCE_DELAY));
 
-async function onScroll() {
-  if (
-    document.documentElement.scrollHeight - document.documentElement.scrollTop <=
-    document.documentElement.clientHeight
-  ) {
-    await onLoadMore()
-  }
-}
+// async function onScroll() {
+//   if (
+//     document.documentElement.scrollHeight - document.documentElement.scrollTop <=
+//     document.documentElement.clientHeight
+//   ) {
+//     await onLoadMore()
+//   }
+// }
 
 async function searchFn(e) {
   e.preventDefault();
