@@ -21,6 +21,8 @@
     "axios": "^0.27.2",
     "hbs": "^4.2.0",
     "infinite-scroll": "^4.0.1",
+    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.5",
     "simplelightbox": "^2.10.3"

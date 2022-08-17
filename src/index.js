@@ -3,10 +3,11 @@ import { backendRequest } from './js/backendRequest';
 import photoCardTpl from './templates/photo-card.hbs';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import InfiniteScroll from 'infinite-scroll';
+import debounce from 'lodash.debounce';
 
 export let pageNumber;
 export const perPage = 40;
+const DEBOUNCE_DELAY = 500;
 
 export const refs = {
   searchForm: document.querySelector('#search-form'),
@@ -23,7 +24,17 @@ let lightbox = new SimpleLightbox('.gallery a', {
 });
 
 refs.searchForm.addEventListener('submit', searchFn);
-refs.loadMoreBtn.addEventListener('click', onLoadMore);
+// refs.loadMoreBtn.addEventListener('click', onLoadMore);
+window.addEventListener('scroll', debounce(onScroll, DEBOUNCE_DELAY));
+
+async function onScroll() {
+  if (
+    document.documentElement.scrollHeight - document.documentElement.scrollTop <=
+    document.documentElement.clientHeight
+  ) {
+    await onLoadMore()
+  }
+}
 
 async function searchFn(e) {
   e.preventDefault();

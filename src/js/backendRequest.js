@@ -15,20 +15,21 @@ export async function backendRequest(name, pageN) {
       const numberOfPages = Math.ceil(totalPages);
 
       
-      if (response.data.total !== 0 && pageNumber === 1) {
+      if (response.data.total !== 0 && pageN === 1) {
         Notiflix.Notify.success(
           `"Hooray! We found ${response.data.total} images on ${numberOfPages} pages."`
           );
         }
         
-        if (response.data.total !== 0) {
-          Notiflix.Notify.success(`"Download page ${pageNumber} out of ${numberOfPages}."`);
-          refs.loadMoreBtn.classList.remove('is-hidden');
-          if (response.data.total !== 0 && pageNumber >= totalPages) {
+        if (response.data.total !== 0 && pageN <= numberOfPages) {
+          Notiflix.Notify.success(`"Download page ${pageN} out of ${numberOfPages}."`);
+          // refs.loadMoreBtn.classList.remove('is-hidden');
+          if (response.data.total !== 0 && pageN >= totalPages) {
             refs.loadMoreBtn.classList.add('is-hidden');
             Notiflix.Notify.info(
               "We're sorry, but you've reached the end of search results."
             );
+            pageNumber -= 1;
           } 
         return response.data;
       } else {
