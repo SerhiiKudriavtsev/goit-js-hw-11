@@ -1,12 +1,10 @@
 
-import { backendRequest } from './js/backendRequest';
 import photoCardTpl from './templates/photo-card.hbs';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import debounce from 'lodash.debounce';
+import { backendRequest } from './js/backendRequest';
 
-export let pageNumber;
-export const perPage = 40;
 const DEBOUNCE_DELAY = 500;
 
 export const refs = {
@@ -25,30 +23,20 @@ let lightbox = new SimpleLightbox('.gallery a', {
 
 refs.searchForm.addEventListener('submit', searchFn);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
-// window.addEventListener('scroll', debounce(onScroll, DEBOUNCE_DELAY));
-
-// async function onScroll() {
-//   if (
-//     document.documentElement.scrollHeight - document.documentElement.scrollTop <=
-//     document.documentElement.clientHeight
-//   ) {
-//     await onLoadMore()
-//   }
-// }
 
 async function searchFn(e) {
   e.preventDefault();
-  pageNumber = 1;
+  backendRequest.pageNumber = 1;
   refs.gallery.innerHTML = '';
   onLoadMore();
 }
 
 async function onLoadMore() {
   const searchQery = refs.inputForm.value.trim();
-  const backendFeedback = await backendRequest(searchQery, pageNumber);
+  const backendFeedback = await backendRequest.fetch(searchQery);
   renderPhotoCards(backendFeedback); 
   scrollBy();
-  pageNumber += 1;
+  backendRequest.pageNumber += 1;
   await lightbox.refresh();
 }
 
@@ -66,11 +54,3 @@ function scrollBy() {
     behavior: 'smooth',
   });
 }
-
-// function scrollBy() {
-//   let infScroll = new InfiniteScroll('.gallery', {
-//     path: '.pagination__next',
-//     append: '.post',
-//     history: false,
-//   });
-// }
